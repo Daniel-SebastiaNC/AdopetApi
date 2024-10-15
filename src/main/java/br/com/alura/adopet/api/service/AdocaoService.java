@@ -44,11 +44,8 @@ public class AdocaoService {
 
         validacoesSolicitacaoAdocaos.forEach(v -> v.validar(dto));
 
-        Adocao adocao = new Adocao();
-        adocao.setData(LocalDateTime.now());
-        adocao.setStatus(StatusAdocao.AGUARDANDO_AVALIACAO);
-        adocao.setPet(pet);
-        adocao.setTutor(tutor);
+        Adocao adocao = new Adocao(tutor, pet, dto.motivo());
+
         adocaoRepository.save(adocao);
 
         String to = pet.getAbrigo().getEmail();
@@ -60,7 +57,7 @@ public class AdocaoService {
     public void aprovar(AprovacaoAdocaoDto dto) {
         Adocao adocao = adocaoRepository.getReferenceById(dto.idAdocao());
 
-        adocao.setStatus(StatusAdocao.APROVADO);
+        adocao.aprovar();
         adocaoRepository.save(adocao);
 
         String to = adocao.getPet().getAbrigo().getEmail();
@@ -72,9 +69,8 @@ public class AdocaoService {
     public void renovar(ReprovacaoAdocaoDto dto) {
         Adocao adocao = adocaoRepository.getReferenceById(dto.idAdocao());
 
-        adocao.setStatus(StatusAdocao.REPROVADO);
+        adocao.reprovar(dto.justificativa());
         adocaoRepository.save(adocao);
-        adocao.setJustificativaStatus(dto.justificativa());
 
         String to = adocao.getPet().getAbrigo().getEmail();
         String subject = "Adoção reprovada";
