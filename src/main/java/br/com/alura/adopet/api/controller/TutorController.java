@@ -2,7 +2,7 @@ package br.com.alura.adopet.api.controller;
 
 import br.com.alura.adopet.api.dto.AtualizacaoTutorDto;
 import br.com.alura.adopet.api.dto.CadastroTutorDto;
-import br.com.alura.adopet.api.excpetion.ValidacaoExcpetion;
+import br.com.alura.adopet.api.exception.ValidacaoException;
 import br.com.alura.adopet.api.service.TutorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,8 @@ public class TutorController {
         try {
             service.cadastrar(dto);
             return ResponseEntity.ok().build();
-        } catch (ValidacaoExcpetion e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (ValidacaoException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
 
@@ -34,10 +34,9 @@ public class TutorController {
         try {
             service.atualizar(dto);
             return ResponseEntity.ok().build();
-        } catch (ValidacaoExcpetion e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (ValidacaoException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
         }
-
     }
 
 }

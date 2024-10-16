@@ -14,7 +14,6 @@ public class Tutor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
 
     private String nome;
@@ -23,12 +22,18 @@ public class Tutor {
 
     private String email;
 
-    @OneToMany(mappedBy = "tutor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tutor")
     private List<Adocao> adocoes = new ArrayList<>();
 
-    public Tutor(){}
+    public Tutor() {}
 
-    public Tutor(CadastroTutorDto dto){
+    public Tutor(CadastroTutorDto dto) {
+        this.nome = dto.nome();
+        this.telefone = dto.telefone();
+        this.email = dto.email();
+    }
+
+    public void atualizarDados(AtualizacaoTutorDto dto) {
         this.nome = dto.nome();
         this.telefone = dto.telefone();
         this.email = dto.email();
@@ -51,44 +56,20 @@ public class Tutor {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getNome() {
         return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public List<Adocao> getAdocoes() {
         return adocoes;
     }
 
-    public void setAdocoes(List<Adocao> adocoes) {
-        this.adocoes = adocoes;
-    }
-
-    public void atualizarDados(AtualizacaoTutorDto dto) {
-        this.telefone = dto.telefone();
-        this.email = dto.email();
-    }
 }

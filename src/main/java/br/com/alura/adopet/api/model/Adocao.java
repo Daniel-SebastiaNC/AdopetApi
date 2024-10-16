@@ -36,9 +36,7 @@ public class Adocao {
         this.data = LocalDateTime.now();
     }
 
-    public Adocao() {
-
-    }
+    public Adocao(){}
 
     @Override
     public boolean equals(Object o) {
@@ -69,6 +67,10 @@ public class Adocao {
         return pet;
     }
 
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+
     public String getMotivo() {
         return motivo;
     }
@@ -81,14 +83,12 @@ public class Adocao {
         return justificativaStatus;
     }
 
-    public void aprovar() {
+    public void marcarComoAprovada() {
         this.status = StatusAdocao.APROVADO;
     }
 
-    public void reprovar(String justificativa) {
+    public void marcarComoReprovada(String justificativa) {
         this.status = StatusAdocao.REPROVADO;
         this.justificativaStatus = justificativa;
-
     }
-
 }
